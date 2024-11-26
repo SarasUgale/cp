@@ -1,0 +1,52 @@
+#Write a program to check if a binary tree is Binary Search Tree (BST) or not
+
+
+class Node:
+    """A class representing a node in a binary tree."""
+    def __init__(self, value):
+        self.data = value
+        self.left = None
+        self.right = None
+
+
+def isBST(node, min_val=float('-inf'), max_val=float('inf')):
+    """
+    Checks if the binary tree is a BST using min and max bounds.
+    This approach avoids unnecessary traversal for max/min values.
+    """
+    if node is None:
+        return True
+    if node.data <= min_val or node.data >= max_val:
+        return False
+    return isBST(node.left, min_val, node.data) and isBST(node.right, node.data, max_val)
+
+
+def insert(node, value):
+    """Inserts a new value into the binary tree following BST rules."""
+    if node is None:
+        return Node(value)
+    if value < node.data:
+        node.left = insert(node.left, value)
+    else:
+        node.right = insert(node.right, value)
+    return node
+
+
+if __name__ == "__main__":
+    root = None
+    print("Enter the values for the nodes of the binary tree (enter 'done' to finish):")
+
+    while True:
+        value = input("Enter a value: ")
+        if value.lower() == 'done':
+            break
+        try:
+            value = int(value)
+            root = insert(root, value)
+        except ValueError:
+            print("Please enter a valid integer.")
+
+    if isBST(root):
+        print("The binary tree is a BST.")
+    else:
+        print("The binary tree is not a BST.")
