@@ -1,0 +1,7 @@
+#Programs on implementation of all the string functions
+string = input("Enter the String: ")
+print("Length of string is :",len(string))
+print("Lower string : ",string.lower())
+print("Upper string: ",string.upper())
+print("Catpital string:", string.capitalize())
+print("Title function: ",string.title())
