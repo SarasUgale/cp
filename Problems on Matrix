@@ -1,0 +1,79 @@
+#Write a program for multiplication of matrix
+def matrix_input(rows, cols):
+    """Takes user input for a matrix of size rows x cols"""
+    print(f"Enter the elements of a {rows}x{cols} matrix row by row:")
+    matrix = []
+    for i in range(rows):
+        row = list(map(int, input(f"Row {i + 1}: ").strip().split()))
+        if len(row) != cols:
+            print(f"Each row must have exactly {cols} elements. Please re-enter the row.")
+            return matrix_input(rows, cols)
+        matrix.append(row)
+    return matrix
+
+
+def multiply_matrices(mat1, mat2):
+    """Multiplies two matrices mat1 and mat2"""
+    rows1, cols1 = len(mat1), len(mat1[0])
+    rows2, cols2 = len(mat2), len(mat2[0])
+    
+    # Check if multiplication is possible
+    if cols1 != rows2:
+        raise ValueError("Number of columns in Matrix 1 must equal number of rows in Matrix 2.")
+    
+    # Initialize the result matrix with zeros
+    result = [[0 for _ in range(cols2)] for _ in range(rows1)]
+    
+    # Perform multiplication
+    for i in range(rows1):
+        for j in range(cols2):
+            for k in range(cols1):
+                result[i][j] += mat1[i][k] * mat2[k][j]
+    
+    return result
+
+
+# Input dimensions
+rows1 = int(input("Enter the number of rows for Matrix 1: "))
+cols1 = int(input("Enter the number of columns for Matrix 1: "))
+rows2 = int(input("Enter the number of rows for Matrix 2: "))
+cols2 = int(input("Enter the number of columns for Matrix 2: "))
+
+# Ensure matrices can be multiplied
+if cols1 != rows2:
+    print("Error: Number of columns in Matrix 1 must be equal to number of rows in Matrix 2.")
+else:
+    # Input matrices
+    mat1 = matrix_input(rows1, cols1)
+    mat2 = matrix_input(rows2, cols2)
+    
+    # Multiply matrices
+    result = multiply_matrices(mat1, mat2)
+    
+    # Display the result
+    print("The resulting matrix after multiplication is:")
+    for row in result:
+        print(" ".join(map(str, row)))
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+#Write a program for transpose of a matrix
+
+# Program to transpose a matrix using a nested loop
+
+X = [[12,7],
+    [4 ,5],
+    [3 ,8]]
+
+result = [[0,0,0],
+         [0,0,0]]
+
+# iterate through rows
+for i in range(len(X)):
+   # iterate through columns
+   for j in range(len(X[0])):
+       result[j][i] = X[i][j]
+
+for r in result:
+   print(r)
