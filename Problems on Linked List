@@ -1,0 +1,115 @@
+#Write a program to perform following operations
+#i) Create linked list
+#ii) Add node at beginning
+#iii) Add node at specific index
+#iv) Remove from end begging specific index
+
+class Node:
+    """A class representing a node in a linked list."""
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedList:
+    """A class representing a singly linked list."""
+    def __init__(self):
+        self.head = None
+
+    def create_linked_list(self, elements):
+        """Creates a linked list from a list of elements."""
+        for element in elements:
+            self.add_at_end(element)
+
+    def add_at_beginning(self, data):
+        """Adds a new node at the beginning of the linked list."""
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def add_at_end(self, data):
+        """Adds a new node at the end of the linked list."""
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+    def add_at_index(self, index, data):
+        """Adds a new node at a specific index."""
+        if index == 0:
+            self.add_at_beginning(data)
+            return
+        current = self.head
+        for i in range(index - 1):
+            if not current:
+                print("Index out of bounds")
+                return
+            current = current.next
+        if not current:
+            print("Index out of bounds")
+            return
+        new_node = Node(data)
+        new_node.next = current.next
+        current.next = new_node
+
+    def remove_at_index(self, index):
+        """Removes a node from a specific index."""
+        if not self.head:
+            print("List is empty")
+            return
+        if index == 0:
+            self.head = self.head.next
+            return
+        current = self.head
+        for i in range(index - 1):
+            if not current.next:
+                print("Index out of bounds")
+                return
+            current = current.next
+        if not current.next:
+            print("Index out of bounds")
+            return
+        current.next = current.next.next
+
+    def display(self):
+        """Displays the elements of the linked list."""
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+
+# Test the LinkedList class
+if __name__ == "__main__":
+    ll = LinkedList()
+
+    # Create a linked list
+    elements = [10, 20, 30]
+    print("Creating linked list with elements:", elements)
+    ll.create_linked_list(elements)
+    ll.display()
+
+    # Add a node at the beginning
+    print("Adding 5 at the beginning:")
+    ll.add_at_beginning(5)
+    ll.display()
+
+    # Add a node at a specific index
+    print("Adding 15 at index 2:")
+    ll.add_at_index(2, 15)
+    ll.display()
+
+    # Remove a node from a specific index
+    print("Removing node at index 3:")
+    ll.remove_at_index(3)
+    ll.display()
+
+    # Remove the first node
+    print("Removing node at index 0:")
+    ll.remove_at_index(0)
+    ll.display()
